@@ -29,8 +29,6 @@ const hyphenUuidRemove = (uuid: string) => {
   return uuid.split('-').join('')
 }
 
-
-
 export const App = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const inputHyphenRef = useRef<HTMLInputElement>(null);
@@ -41,7 +39,6 @@ export const App = () => {
   const [hyphenRemovedUuid, sethyphenRemovedUuid] = useState<string>("");
 
   const toast = useToast()
-  const statuses = ['success', 'error']
 
   const handleUuidChecker = () => (
     // eslint-disable-next-line no-sequences
@@ -52,30 +49,28 @@ export const App = () => {
       duration: 3000,
       isClosable: true,
     })
-    );
+  );
   
-    const handleHyphenUuid = () => {
-      const uuid = inputHyphenRef!.current!.value
-      const newUuid = hyphenUuidGenerator(uuid)
-      sethyphenUuid(newUuid)
-    }
+  const handleHyphenUuid = () => {
+    const uuid = inputHyphenRef!.current!.value
+    const newUuid = hyphenUuidGenerator(uuid)
+    sethyphenUuid(newUuid)
+  }
 
-    const handleHyphenRemoveUuid = () => {
-      const uuid = inputRemovedHyphenRef!.current!.value
-      const newUuid = hyphenUuidRemove(uuid)
-      sethyphenRemovedUuid(newUuid)
-    }
+  const handleHyphenRemoveUuid = () => {
+    const uuid = inputRemovedHyphenRef!.current!.value
+    const newUuid = hyphenUuidRemove(uuid)
+    sethyphenRemovedUuid(newUuid)
+  }
 
   const isValid = inputValue !== "" ? uuidValidate(inputValue) : true;
-  
-
 
   return (
     <ChakraProvider theme={theme}>
     <Box textAlign="center" fontSize="xl">
       <Grid minH="30vh" p={8}>
         <ColorModeSwitcher justifySelf="flex-end" />
-        <Heading p={32}>UUID Tool</Heading>
+        <Heading p={20}>UUID Tool</Heading>
           <VStack spacing={8}>
             <Flex minWidth='max-content' alignItems='center' gap='2'>
               <Text>UUID checker</Text>
