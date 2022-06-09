@@ -13,6 +13,7 @@ import {
   Divider,
   IconButton,
   useToast,
+  Link,
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 import { validate as uuidValidate } from "uuid";
@@ -20,7 +21,8 @@ import { v4 as uuidv4 } from "uuid";
 import { CopyIcon } from "@chakra-ui/icons";
 
 const hyphenUuidGenerator = (uuid: string) => {
-  if (uuid !== "") {
+  if (uuid !== "" || uuid.indexOf("-") !== -1) {
+    uuid = uuid.split("-").join("");
     const part1 = uuid.substr(0, 8);
     const part2 = uuid.substr(8, 4);
     const part3 = uuid.substr(12, 4);
@@ -47,16 +49,36 @@ export const App = () => {
 
   const toast = useToast();
 
-  const handleUuidChecker = () => (
-    // eslint-disable-next-line no-sequences
-    setinputValue(inputRef!.current!.value),
-    toast({
-      title: "UUID not correct.",
-      status: "error",
-      duration: 3000,
-      isClosable: true,
-    })
-  );
+  const handleUuidChecker = () => {
+    const uuidInput = inputRef.current?.value;
+
+    if (!uuidInput) {
+      return;
+    }
+
+    setinputValue(uuidInput);
+    const isValidUuid = uuidValidate(uuidInput);
+    console.log(isValidUuid);
+    if (isValidUuid) {
+      toast({
+        title: "UUID is correct",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "top-left",
+      });
+    } else {
+      toast({
+        title: "UUID not correct.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-left",
+      });
+    }
+  };
+
+  const isValid = inputValue !== "" ? uuidValidate(inputValue) : true;
 
   const handleHyphenUuid = () => {
     const uuid = inputHyphenRef!.current!.value;
@@ -70,14 +92,14 @@ export const App = () => {
     sethyphenRemovedUuid(newUuid);
   };
 
-  const isValid = inputValue !== "" ? uuidValidate(inputValue) : true;
-
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
         <Grid minH="30vh" p={8}>
           <ColorModeSwitcher justifySelf="flex-end" />
-          <Heading p={20}>UUID Tool</Heading>
+          <Heading p={5} marginBottom={50}>
+            UUID Tool
+          </Heading>
           <VStack spacing={8}>
             <Flex minWidth="max-content" alignItems="center" gap="2">
               <Text>UUID checker</Text>
@@ -167,6 +189,12 @@ export const App = () => {
               )}
             </Flex>
           </VStack>
+          <Text paddingTop={20}>
+            Made with &#10084; by{" "}
+            <Link color="teal.300" href="https://www.alvarotc.com/">
+              Alvaro Torres
+            </Link>
+          </Text>
         </Grid>
       </Box>
     </ChakraProvider>
