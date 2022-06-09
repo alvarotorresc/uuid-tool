@@ -160,7 +160,9 @@ export const App = () => {
                   aria-label="Call Sage"
                   fontSize="20px"
                   icon={<CopyIcon />}
-                  onClick={() => navigator.clipboard.writeText(hyphenUuid)}
+                  onClick={() =>
+                    navigator.clipboard.writeText(hyphenRemovedUuid)
+                  }
                 />
               )}
             </Flex>
