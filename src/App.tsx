@@ -144,7 +144,7 @@ export const App = () => {
                 width="auto"
               />
               <Button colorScheme="green" onClick={handleHyphenUuid}>
-                Hyphen uuid
+                Hyphen UUID
               </Button>
             </Flex>
             <Flex minWidth="max-content" alignItems="center" gap="2">
@@ -170,7 +170,7 @@ export const App = () => {
                 width="auto"
               />
               <Button colorScheme="pink" onClick={handleHyphenRemoveUuid}>
-                Unhyphen uuid
+                Unhyphen UUID
               </Button>
             </Flex>
             <Flex minWidth="max-content" alignItems="center" gap="2">
